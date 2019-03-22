@@ -1,12 +1,20 @@
 {
   "name": "nodejscourse",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "NodeJS Udemy Course by Maximilian Schwarzmuller",
   "private": true,
+  "main": "app.js",
   "scripts": {
-    "start": "nodemon app"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js",
+    "start-server": "node app.js"
+  },
+  "author": "Bart Antczak",
+  "devDependencies": {
+    "nodemon": "^1.18.10"
   },
   "dependencies": {
     "express": "^4.16.4",
-    "nodemon": "^1.18.10"
+    "body-parser": "^1.18.3"
   }
 }
