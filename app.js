@@ -31,12 +31,15 @@ app.use(
 );
 
 app.use((req, res, next) => {
-  User.findById('5c99e2030b6437aca8c269e0')
-    .then(user => {
-      req.user = user;
-      next();
-    })
-    .catch(err => console.log(err));
+  if (!req.session.user) {
+    return next();
+  }
+  User.findById(req.session.user._id)
+      .then(user => {
+        req.user = user;
+        next();
+      })
+      .catch(err => console.log(err));
 });
 
 app.use('/admin', adminRoutes);
@@ -50,19 +53,7 @@ mongoose
       MONGODB_URI,
       { useNewUrlParser: true }
   )
-  .then(result => {
-    User.findOne().then(user => {
-      if (!user) {
-        const user = new User({
-          name: 'Bart',
-          email: 'bart@test.com',
-          cart: {
-            items: []
-          }
-        });
-        user.save();
-      }
-    });
+  .then(() => {
     app.listen(3000);
   })
   .catch(err => {
